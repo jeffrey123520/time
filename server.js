@@ -25,8 +25,15 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
-app.get("/api/timestamp/:date_string", function(req, res){
-  res.json(date.getUTCDate(String.toString(req.params)));
+app.get("/api/timestamp/", function(req, res){
+  let dateToParse = new Date();
+  res.json(dateToParse)
+});
+
+app.get("/api/timestamp/:dateString", function(req, res){
+  let dateToParse = new Date(req.params.dateString)
+  let gmt = dateToParse.toUTCString();
+  res.json(dateToParse.getTime() / 100);
 });
 
 
