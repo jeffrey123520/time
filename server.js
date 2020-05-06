@@ -39,7 +39,7 @@ app.get("/api/timestamp/", function(req, res){
 app.get("/api/timestamp/:dateString", function(req, res){
   let dateToParse = new Date(req.params.dateString)
   let utc = dateToParse.toUTCString();
-  let unix = dateToParse.getTime()
+  let unix = dateToParse.getTime();
   let response = {
     unix: unix,
     utc: utc
