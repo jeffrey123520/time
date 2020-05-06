@@ -27,17 +27,28 @@ app.get("/api/hello", function (req, res) {
 
 app.get("/api/timestamp/", function(req, res){
   let dateToParse = new Date();
-  res.json(dateToParse)
-});
-
-app.get("/api/timestamp/:dateString", function(req, res){
-  let dateToParse = new Date(req.params.dateString)
   let utc = dateToParse.toUTCString();
   let unix = dateToParse.getTime()
   let response = utc !== "Invalid Date" ? {
     unix: unix,
     utc: utc
   } : {"error": utc};
+  res.json(response);
+});
+
+app.get("/api/timestamp/:dateString", function(req, res){
+  let dateToParse = new Date(req.params.dateString)
+  let utc = dateToParse.toUTCString();
+  let unix = dateToParse.getTime()
+  let response = {
+    unix: unix,
+    utc: utc
+  };
+  
+  // let response = utc !== "Invalid Date" ? {
+  //   unix: unix,
+  //   utc: utc
+  // } : {"error": utc};
   res.json(response);
 });
 
