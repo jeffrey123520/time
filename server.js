@@ -28,7 +28,7 @@ app.get("/api/hello", function (req, res) {
 app.get("/api/timestamp/", function(req, res){
   let dateToParse = new Date();
   let utc = dateToParse.toUTCString();
-  let unix = dateToParse.getTime()
+  let unix = dateToParse.getTime();
   let response = utc !== "Invalid Date" ? {
     unix: unix,
     utc: utc
@@ -37,18 +37,13 @@ app.get("/api/timestamp/", function(req, res){
 });
 
 app.get("/api/timestamp/:dateString", function(req, res){
-  let dateToParse = new Date(req.params.dateString)
+  let dateToParse = req.params.dateString.indexOf("-") == -1 ? new Date(parseInt(req.params.dateString)) : new Date(req.params.dateString);
   let utc = dateToParse.toUTCString();
   let unix = dateToParse.getTime();
-  let response = {
+  let response = utc !== "Invalid Date" ? {
     unix: unix,
     utc: utc
-  };
-  
-  // let response = utc !== "Invalid Date" ? {
-  //   unix: unix,
-  //   utc: utc
-  // } : {"error": utc};
+  } : {"error": utc};
   res.json(response);
 });
 
